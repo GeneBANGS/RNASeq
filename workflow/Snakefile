@@ -1,0 +1,53 @@
+from snakemake.utils import min_version
+
+##### set minimum snakemake version #####
+min_version("6.15.0")
+
+
+##### setup report #####
+configfile: "config/config.yaml"
+
+
+##### load rules #####
+include: "rules/common.smk"
+include: "rules/trimming.smk"
+include: "rules/kallisto.smk"
+include: "rules/mapping.smk"
+include: "rules/rseqc.smk"
+include: "rules/qc.smk"
+
+##### local rules #####
+localrules:
+    all
+
+##### target rules #####
+rule all:
+    input:
+        trim=expand(
+            resolve_results_filepath(
+                config.get("paths").get("results_dir"),
+                "reads/trimmed/{sample.sample}-R1-trimmed.fq.gz",
+            ),
+            sample=samples.reset_index().itertuples(),
+        ),
+        kallisto=expand(
+            resolve_results_filepath(
+                config.get("paths").get("results_dir"),
+                "kallisto/{sample.sample}/abundance.h5",
+            ),
+            sample=samples.reset_index().itertuples(),
+        ),
+        bam=expand(
+            resolve_results_filepath(
+                config.get("paths").get("results_dir"),
+                "reads/bam/{sample.sample}.bam",
+            ),
+            sample=samples.reset_index().itertuples(),
+        ),
+        qc=resolve_results_filepath(
+            config.get("paths").get("results_dir"), "qc/multiqc.html"),
+
+    threads: conservative_cpu_count(reserve_cores=2,max_cores=99)
+    resources:
+        tmpdir=config.get("paths").get("tmp_dir")
+    message: "Concluding the workflow!"

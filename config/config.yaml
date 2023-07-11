@@ -1,0 +1,36 @@
+samples: config/samples.tsv
+units: config/units.tsv
+
+
+resources:
+    max_cores: "7"
+    reference_path: "/path/to/reference"
+    reference_fa: "reference_genome.fasta"
+    transcriptome_fasta: "transcriptome.fasta"
+    gtf: "genome.gtf"
+    rseqc_data: "path_to_rseqc_data"
+    refseq_bed: ""
+    target_bed: ""
+    housekeeping_genes: ""
+
+
+params:
+    star:
+        platform: "illumina"
+        sequencing_center: "irgb"
+        overhang: "100" ## based on read length
+    rseqc:
+        bamstat:
+            min_map_qual: "60"
+    multiqc:
+        arguments: "--interactive"
+    trim_galore:
+        arguments: "--paired -q 20 "
+    kallisto:
+        arguments: "--rf-stranded "
+
+
+paths:
+    workdir: "/path/to/workdir"
+    results_dir: "/path/to/results_dir"
+    tmp_dir: "/path/to/tmp_dir"
