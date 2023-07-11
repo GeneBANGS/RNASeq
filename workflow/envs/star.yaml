@@ -1,0 +1,6 @@
+channels:
+  - bioconda
+  - conda-forge
+  - anaconda
+dependencies:
+  - star=2.7.10b
