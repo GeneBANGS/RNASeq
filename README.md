@@ -9,10 +9,18 @@ The pseudoaligner `kallisto` is used to estimate transcripts abundance, with res
 
 `STAR` 2-pass mapping is used for read alignment.
 
+Quality Control is perfomed with `FastQC` and `RSeQC` and included in an interactive `MultiQC` report.
+
 ## Authors
 
 * [Matteo Massidda](https://github.com/massiddamt), University of Sassari
 * [Vincenzo Rallo](https://github.com/VincenzoRallo), Institute for Genetic and Biomedical Research (IRGB) - National Research Council (CNR)
+
+## Usage
+
+The usage of this workflow is described in the [Snakemake Workflow Catalog](https://snakemake.github.io/snakemake-workflow-catalog?usage=GeneBANGS/RNASeq).
+
+If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) repository and its DOI (see above).
 
 ## INSTRUCTIONS
 Create a virtual environment with the command:
