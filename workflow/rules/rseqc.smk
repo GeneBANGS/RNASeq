@@ -9,6 +9,9 @@ rule bam_stat:
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.bam_stat.txt")
     params:
         min_map_qual=config.get("params").get("rseqc").get("bamstat").get("min_map_qual")
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"logs/rseqc/bamstat/{sample}_bamstat.log")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
@@ -34,6 +37,9 @@ rule smatools_flagstat:
     output:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/samtools/{sample}.flagstat.txt")
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"logs/samtools/flagstat/{sample}.log")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/samtools.yaml"
@@ -61,6 +67,9 @@ rule rseqc_read_distribution:
     params:
 #        ref=resolve_single_filepath(*references_abs_path(ref="rseqc_reference"), config.get("refseq")),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed")),
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"logs/rseqc/read_distribution/{sample}_readdistribution.log")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
@@ -87,8 +96,7 @@ rule genebody_coverage:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.geneBodyCoverage.txt")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}"),
+        out_basename=lambda w, output: output[0].split(".", 1),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("housekeeping_genes"))
     log:
         resolve_results_filepath(
@@ -118,9 +126,11 @@ rule rseqc_junction_annotation:
         out=resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.junction.txt")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}"),
+        out_basename=lambda w, output: output[0].split(".", 1),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed"))
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.junctionAnnotation.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -146,8 +156,7 @@ rule rseqc_junction_saturation:
         plotr=resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.junctionSaturation_plot.r")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}"),
+        out_basename=lambda w, output: output[0].split(".", 1),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed")),
     log:
         resolve_results_filepath(
@@ -178,8 +187,10 @@ rule rseqc_GC:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.GC.xls")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}")
+        out_basename=lambda w, output: output[0].split(".", 1)
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.GC.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -205,6 +216,9 @@ rule rseqc_infer_experiment:
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.infer_experiment.txt")
     params:
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed"))
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.inferexperiment.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -230,9 +244,11 @@ rule rseqc_inner_distance:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.inner_distance.txt")
     params:
-        out_basename = resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}"),
+        out_basename = lambda w, output: output[0].split(".", 1),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed")),
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.innerdistance.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -258,8 +274,10 @@ rule rseqc_read_duplication:
         out1=resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.dup.pos.DupRate.xls")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}")
+        out_basename=lambda w, output: output[0].split(".", 1)
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.read_duplication.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -284,8 +302,7 @@ rule rseqc_RPKM_saturation:
         out=resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.saturation.pdf")
     params:
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/{sample}"),
+        out_basename=lambda w, output: output[0].split(".", 1),
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed")),
     log:
         resolve_results_filepath(
@@ -317,6 +334,9 @@ rule rseqc_tin:
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.tin.summary.txt")
     params:
         ref=resolve_single_filepath(config.get("resources").get("rseqc_data"), config.get("resources").get("refseq_bed"))
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.tin.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")
@@ -348,6 +368,9 @@ rule check_rseqc:
     output:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/rseqc/{sample}.rseqc_complete")
+    log:
+        resolve_results_filepath(
+            config.get("paths").get("results_dir"),"qc/rseqc/{sample}.check.txt")
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml")

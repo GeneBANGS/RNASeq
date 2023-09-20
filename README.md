@@ -25,7 +25,7 @@ If you use this workflow in a paper, don't forget to give credits to the authors
 ## INSTRUCTIONS
 Create a virtual environment with the command:
 ```commandline
-mamba create -c bioconda -c conda-forge --name snakemake snakemake=6.15 snakedeploy
+mamba create -c bioconda -c conda-forge --name snakemake snakemake=7.18 snakedeploy
 ```
 and activate it:
 ```commandline

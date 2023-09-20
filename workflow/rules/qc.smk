@@ -13,8 +13,7 @@ rule fastqc:
         zip_r2= resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/fastqc/{sample}-R2_fastqc.zip")
     params:
-        outdir=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/fastqc")
+        outdir=lambda w, output: os.path.split(output[0])[0]
     log:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"logs/fastqc/{sample}.log")
@@ -49,8 +48,7 @@ rule fastqc_trimmed:
         zip_r2= resolve_results_filepath(
             config.get("paths").get("results_dir"),"qc/fastqc_trimmed/{sample}-R2_fastqc.zip")
     params:
-        outdir=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/fastqc_trimmed")
+        outdir=lambda w, output: os.path.split(output[0])[0]
     log:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"logs/fastqc_trimmed/{sample}.log")
@@ -129,16 +127,11 @@ rule multiqc:
         params=config.get("params").get("multiqc").get("arguments"),
         outdir="qc",
         outname="multiqc.html",
-        fastqc=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/fastqc/"),
-        trimming=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"reads/trimmed/"),
-        rseqc=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"qc/rseqc/"),
-        star=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"star/"),
-        kallisto=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"logs/kallisto/"),
+        fastqc=lambda w, input: os.path.split(input.fastqc_r1[0])[0],
+        trimming=lambda w, input: os.path.split(input.fastqc_trimmed_r1[0])[0],
+        rseqc=lambda w, input: os.path.split(input.rseqc[0])[0],
+        star=lambda w, input: os.path.split(input.star[0])[0],
+        kallisto=lambda w, input: os.path.split(input.kallisto[0])[0],
     conda:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/multiqc.yaml")

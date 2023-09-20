@@ -6,8 +6,7 @@ rule star_index:
             config.get("paths").get("results_dir"),"star/index/chrLength.txt"), non_empty=True)
     params:
         gtf=resolve_single_filepath(config.get("resources").get("reference_path"), config.get("resources").get("gtf")),
-        genomeDir=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"star/index"),
+        genomeDir=lambda w, output: os.path.split(output[0])[0],
         overhang=config.get("params").get("star").get("overhang")
     log:
         resolve_results_filepath(
@@ -45,13 +44,11 @@ rule star_2pass_mapping:
         log = resolve_results_filepath(
             config.get("paths").get("results_dir"),"star/{sample}/{sample}.Log.final.out")
     params:
-        genomedir = resolve_results_filepath(
-            config.get("paths").get("results_dir"),"star/index"),
+        genomedir = lambda w, input: os.path.split(input.index)[0],
         sample = "{sample}",
         platform=config.get("params").get("star").get("platform"),
         center=config.get("params").get("star").get("sequencing_center"),
-        out_basename=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"star/{sample}/{sample}.")
+        out_basename=lambda w, output: output[0].split(".", 1),
     log:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"logs/star/{sample}/{sample}_star_map.log")

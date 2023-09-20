@@ -37,8 +37,7 @@ rule kallisto:
         resolve_results_filepath(
             config.get("paths").get("results_dir"),"kallisto/{sample}/run_info.json")
     params:
-        outdir=resolve_results_filepath(
-            config.get("paths").get("results_dir"),"kallisto/{sample}"),
+        outdir=lambda w, output: os.path.split(output[0])[0],
         params=config.get("params").get("kallisto").get("arguments")
     conda:
         resolve_single_filepath(
