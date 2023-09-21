@@ -9,7 +9,7 @@ from snakemake.utils import validate
 report: "../report/workflow.rst"
 
 
-#validate(config, schema="../schemas/config.schema.yaml")
+# validate(config, schema="../schemas/config.schema.yaml")
 
 
 samples = pd.read_table(config.get("samples"), index_col="sample")
@@ -17,10 +17,13 @@ units = pd.read_table(config.get("units"), index_col=["unit"], dtype=str)
 
 
 ## pipeline-related functions
-def get_unit_fastqs(wildcards, samples, label='units',read_pair='fq'):
-    for unit_set in samples.loc[wildcards.sample,[label]]:
+def get_unit_fastqs(wildcards, samples, label="units", read_pair="fq"):
+    for unit_set in samples.loc[wildcards.sample, [label]]:
         wildcards.sample
-    return [expand_filepath(units.loc[x,[read_pair]].dropna()[0]) for x in unit_set.split(',')]
+    return [
+        expand_filepath(units.loc[x, [read_pair]].dropna()[0])
+        for x in unit_set.split(",")
+    ]
 
 
 def get_odp(wildcards, samples, optical_dup="odp"):
@@ -65,7 +68,7 @@ def conservative_cpu_count(reserve_cores=1, max_cores=5):
     return max(cores - reserve_cores, 1)
 
 
-def threads_calculator(read_type="pe",max_cores=99):
+def threads_calculator(read_type="pe", max_cores=99):
     if read_type == "se":
         if conservative_cpu_count(reserve_cores=1, max_cores=max_cores) > 2:
             return conservative_cpu_count(reserve_cores=1, max_cores=max_cores) / 2

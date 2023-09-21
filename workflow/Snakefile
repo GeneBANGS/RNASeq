@@ -16,9 +16,11 @@ include: "rules/mapping.smk"
 include: "rules/rseqc.smk"
 include: "rules/qc.smk"
 
+
 ##### local rules #####
 localrules:
-    all
+    all,
+
 
 ##### target rules #####
 rule all:
@@ -45,9 +47,10 @@ rule all:
             sample=samples.reset_index().itertuples(),
         ),
         qc=resolve_results_filepath(
-            config.get("paths").get("results_dir"), "qc/multiqc.html"),
-
-    threads: conservative_cpu_count(reserve_cores=2,max_cores=99)
+            config.get("paths").get("results_dir"), "qc/multiqc.html"
+        ),
+    threads: conservative_cpu_count(reserve_cores=2, max_cores=99)
     resources:
-        tmpdir=config.get("paths").get("tmp_dir")
-    message: "Concluding the workflow!"
+        tmpdir=config.get("paths").get("tmp_dir"),
+    message:
+        "Concluding the workflow!"
