@@ -13,7 +13,7 @@ rule kallisto_index:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/kallisto.yaml"
         )
-    threads: conservative_cpu_count(reserve_cores=1, max_cores=99)
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
     message:
@@ -57,10 +57,7 @@ rule kallisto:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/kallisto.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
     message:

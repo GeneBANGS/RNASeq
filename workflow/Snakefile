@@ -49,7 +49,7 @@ rule all:
         qc=resolve_results_filepath(
             config.get("paths").get("results_dir"), "qc/multiqc.html"
         ),
-    threads: conservative_cpu_count(reserve_cores=2, max_cores=99)
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
     message:

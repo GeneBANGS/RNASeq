@@ -24,10 +24,7 @@ rule bam_stat:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -61,10 +58,7 @@ rule smatools_flagstat:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/samtools.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -104,10 +98,7 @@ rule rseqc_read_distribution:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -148,10 +139,7 @@ rule genebody_coverage:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -192,10 +180,7 @@ rule rseqc_junction_annotation:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -237,10 +222,7 @@ rule rseqc_junction_saturation:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -276,10 +258,7 @@ rule rseqc_GC:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -318,10 +297,7 @@ rule rseqc_infer_experiment:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -362,10 +338,7 @@ rule rseqc_inner_distance:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -402,10 +375,7 @@ rule rseqc_read_duplication:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -444,10 +414,7 @@ rule rseqc_RPKM_saturation:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -486,10 +453,7 @@ rule rseqc_tin:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,
@@ -527,10 +491,7 @@ rule check_rseqc:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/rseqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3000,

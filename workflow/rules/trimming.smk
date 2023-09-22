@@ -16,10 +16,7 @@ rule merge_read1_fastq:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/python_script.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3500,
@@ -47,10 +44,7 @@ rule merge_read2_fastq:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/python_script.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=3500,
@@ -139,10 +133,7 @@ rule rename_trimmed_fastqs:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/bash.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
     message:

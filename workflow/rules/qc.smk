@@ -26,10 +26,7 @@ rule fastqc:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/fastqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=6000,
@@ -74,10 +71,7 @@ rule fastqc_trimmed:
         resolve_single_filepath(
             config.get("paths").get("workdir"), "workflow/envs/fastqc.yaml"
         )
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=6000,
@@ -163,10 +157,7 @@ rule multiqc:
         resolve_results_filepath(
             config.get("paths").get("results_dir"), "logs/multiqc/multiqc.log"
         ),
-    threads:
-        conservative_cpu_count(
-            reserve_cores=1, max_cores=int(config.get("resources").get("max_cores"))
-        )
+    threads: conservative_cpu_count(reserve_cores=1, max_cores=int(config.get("resources").get("max_cores")))
     resources:
         tmpdir=config.get("paths").get("tmp_dir"),
         mem_mb=6000,
