@@ -1,5 +1,8 @@
 # Snakemake workflow: RNASeq
 [![Snakemake](https://img.shields.io/badge/snakemake-≥6.15.0-brightgreen.svg)](https://snakemake.bitbucket.io)
+[![DOI](https://zenodo.org/badge/665018772.svg)](https://zenodo.org/badge/latestdoi/665018772)
+
+
 
 A Snakemake-based pipeline for **RNASeq data analysis**.
 
@@ -35,7 +38,7 @@ You can perform the pipeline deploy defining a directory `my_dest_dir` for analy
 ```bash
 snakedeploy deploy-workflow https://github.com/GeneBANGS/RNASeq.git 
                     my_desd_dir 
-                    --tag v1.1
+                    --tag v1.1.0
 ```
 To run the pipeline, go inside the deployed pipeline folder and use the command:
 ```bash
