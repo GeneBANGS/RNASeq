@@ -7,6 +7,7 @@ authors:
   - family-names: "Rallo"
     given-names: "Vincenzo"
     orcid: "https://orcid.org/0000-0002-8938-5650"
-title: GeneBANGS/RNASeq: A Snakemake-based workflow for reproducible RNA-Seq data analysis
+title: "RNASeq: A Snakemake-based workflow for reproducible RNA-Seq data analysis"
 version: v1.1.0
+doi: 10.5281/zenodo.8369279
 date-released: 2023-09-22
